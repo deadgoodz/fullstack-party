@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\components\AuthHandler;
+use app\models\LoginForm;
 
 class SiteController extends Controller
 {
@@ -17,25 +18,18 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['post'],
                 ],
             ],
+            'as access' => [
+                'class' => '\app\components\AccessBehavior',
+            ]
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -49,6 +43,8 @@ class SiteController extends Controller
             ],
         ];
     }
+
+
 
     public function onAuthSuccess($client)
     {
@@ -64,6 +60,8 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+
+
 
     /**
      * Login action.
@@ -81,10 +79,11 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        $model->password_hash = '';
+        return $this->render('login',
+            [
+                'model' => $model,
+            ]);
     }
 
     /**
@@ -112,9 +111,10 @@ class SiteController extends Controller
 
             return $this->refresh();
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        return $this->render('contact',
+            [
+                'model' => $model,
+            ]);
     }
 
     /**

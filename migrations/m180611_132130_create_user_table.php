@@ -17,8 +17,8 @@ class m180611_132130_create_user_table extends Migration
             'password_reset_token' => $this->string()->notNull(),
             'email' => $this->string()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->dateTime()->notNull(),
+            'updated_at' => $this->dateTime()->notNull(),
         ]);
 
         $this->createTable('auth', [
