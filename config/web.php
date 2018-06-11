@@ -12,6 +12,16 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'github' => [
+                    'class' => 'yii\authclient\clients\GitHub',
+                    'clientId' => '8ce269db4f989aa8f453',
+                    'clientSecret' => 'c5683a8f81dcc12c24fb6d3cfa50b66c468a4861',
+                ],
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '5i7lLfzS6J4VOZzjNBdBu9G1qNoK4LVj',
@@ -43,14 +53,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
