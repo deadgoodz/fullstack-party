@@ -61,6 +61,12 @@ $config = [
                 'comments/<id:\w+>' => 'site/comments',
             ],
         ],
+        'functions' => [
+            'class' => 'app\components\Functions'
+        ],
+        'github' => [
+            'class' => 'app\components\Github'
+        ],
 
     ],
     'params' => $params,

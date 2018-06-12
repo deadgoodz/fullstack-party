@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\components\AuthHandler;
 use app\models\LoginForm;
 use app\components\Github;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -59,15 +60,25 @@ class SiteController extends Controller
     {
         $github = new Github();
 
-        if (isset($_GET['closed'])) {
-            $type = 'closed';
+        if (isset($_GET['state'])) {
+            $type = $_GET['state'];
         } else {
             $type = 'open';
         }
 
-        $issues = $github->getIssues($type);
+        $issues = $github->getIssues();
+        $issues = $issues[$type];
 
-        return $this->render('index', compact('issues'));
+        $counts = Yii::$app->functions->getStateCounts($issues);
+
+        $pagination = new Pagination(['totalCount' => count($issues), 'pageSize' => 1]);
+
+        if (!empty($issues)) {
+            $issues = array_slice($issues, $pagination->offset, 1);
+        }
+
+
+        return $this->render('index', compact('issues', 'pagination','counts'));
 
     }
 

@@ -38,17 +38,14 @@ class Github
 
     }
 
-    public function getIssues($type)
+    public function getIssues()
     {
         if (Yii::$app->user->getIdentity()) {
-            $state = '';
-
-            if (!empty($type)) {
-                $state = '?state=' . $type;
-            }
-
-            $path = '/repos/' . Yii::$app->user->getIdentity()->username . '/proman/issues' . $state;
+            $path = '/repos/' . Yii::$app->user->getIdentity()->username . '/proman/issues?state=all' ;
             $data = $this->performCurlGet($path);
+            if(!empty($data)){
+                $data = $this->groupIssues($data);
+            }
 
             return $data;
         }
@@ -62,6 +59,19 @@ class Github
 
             return $data;
         }
+    }
+
+    public function groupIssues($data){
+        $items = [];
+        foreach ($data as $item){
+            if($item->state == 'open'){
+                $items[$item->state][] = $item;
+            }else{
+                $items['closed'][] = $item;
+            }
+        }
+
+        return $items;
     }
 
 }

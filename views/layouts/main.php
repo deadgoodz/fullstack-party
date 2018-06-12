@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -27,21 +28,27 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-
+    <div class="nav-bar">
+        <div class="nav-logo">
+            <img src="/images/logotype-nav.png">
+        </div>
+        <a href="/site/logout" class="logout-container">
+            <img src="/images/ico-logout.png">
+            <p class="logout-text">
+                logout
+            </p>
+        </a>
+    </div>
 
     <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>
