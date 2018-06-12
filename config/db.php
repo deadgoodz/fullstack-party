@@ -3,8 +3,8 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=tesonet',
-    'username' => 'homestead',
-    'password' => 'secret',
+    'username' => 'matas',
+    'password' => '123654',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

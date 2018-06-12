@@ -7,21 +7,24 @@ use yii\web\IdentityInterface;
 use yii;
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "user".
  *
- * @property string $userid
+ * @property integer $id
  * @property string $username
+ * @property string $auth_key
+ * @property string $password_reset_token
  * @property string $email
- * @property string $name
- * @property string $surname
  * @property string $password_hash
- * @property integer $active
- * @property integer $new_password
+ * @property string $new_password
+ * @property string $status
+ * @property string $created_at
+ * @property string $updated_at
  *
  */
-class User extends \yii\db\ActiveRecord  implements IdentityInterface
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     public $new_password;
+
     /**
      * @inheritdoc
      */
@@ -38,10 +41,9 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             [['username', 'password_hash'], 'required'],
-            [['username', 'password_hash','email','name','surname'], 'string', 'max' => 100],
-            [['password_reset_token','new_password'], 'safe'],
-            [['active'], 'integer'],
-            [['email', 'username'], 'email'],
+            [['username'], 'string'],
+            [['password_reset_token', 'new_password'], 'safe'],
+            [['email'], 'email'],
 
 
         ];
@@ -53,12 +55,15 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'userid' => Yii::t('general', 'id'),
-            'username' => Yii::t('general', 'username'),
-            'password_hash' => Yii::t('general', 'password'),
-            'active' => Yii::t('general', 'active'),
-            'email' => Yii::t('general', 'email'),
-            'new_password' => Yii::t('general', 'new_password')
+            'id' => 'Id',
+            'username' => 'Username',
+            'auth_key' => 'Auth key',
+            'password_hash' => 'Hash',
+            'password_reset_token' => 'Reset token',
+            'email' => 'Email',
+            'status' => 'Status',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated_at'
         ];
     }
     /** INCLUDE USER LOGIN VALIDATION FUNCTIONS**/
@@ -88,7 +93,7 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
     /**
      * Finds user by username
      *
-     * @param  string      $username
+     * @param  string $username
      * @return static|null
      */
     public static function findByUsername($username)
@@ -109,14 +114,14 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
     /**
      * Finds user by password reset token
      *
-     * @param  string      $token password reset token
+     * @param  string $token password reset token
      * @return static|null
      */
     public static function findByPasswordResetToken($token)
     {
         $expire = \Yii::$app->params['user.passwordResetTokenExpire'];
         $parts = explode('_', $token);
-        $timestamp = (int) end($parts);
+        $timestamp = (int)end($parts);
         if ($timestamp + $expire < time()) {
             // token expired
             return null;
@@ -154,7 +159,7 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
     /**
      * Validates password
      *
-     * @param  string  $password password to validate
+     * @param  string $password password to validate
      * @return boolean if password provided is valid for current user
      */
     public function validatePassword($password_hash)
@@ -172,7 +177,8 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
         $this->password_hash = Security::generatePasswordHash($password_hash);
     }
 
-    public function resetPassword($password_hash){
+    public function resetPassword($password_hash)
+    {
         $this->password_hash = sha1($password_hash);
     }
 
@@ -201,11 +207,13 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function findByResetToken($token){
-        return User::find()->where(['password_reset_token'=>$token])->one();
+    public function findByResetToken($token)
+    {
+        return User::find()->where(['password_reset_token' => $token])->one();
     }
 
-    public function findByAuthToken($token){
+    public function findByAuthToken($token)
+    {
         return static::findOne(['auth_key' => $token]);
     }
     /** EXTENSION MOVIE **/

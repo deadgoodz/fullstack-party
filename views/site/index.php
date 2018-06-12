@@ -1,6 +1,6 @@
 
 
 <?php
-//var_dump(Yii::$app->user);
-//die;
-//?>
+var_dump($issues);
+die;
+?>

@@ -58,6 +58,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'comments/<id:\w+>' => 'site/comments',
             ],
         ],
 
