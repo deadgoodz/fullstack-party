@@ -54,7 +54,7 @@
 }
 
 .nav-bar {
-    height: 12%;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,20 +89,21 @@
 
 /* issues design */
 
-
-
 #issues {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 100%;
+    height: 90vh;
+    position: relative;
+
 }
 
 .issues-list-container {
     width: 50%;
     background-color: #f5f5f5;
     height: 100%;
+    overflow: auto;
 }
 
 .issues-image-container {
@@ -112,6 +113,14 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(11, 15, 39, 1);
+    position: absolute;
+    right: 0;
+    top: 0;
+
 }
 
 .filter-container {
@@ -229,6 +238,11 @@
 .list-comment-container {
     display: flex;
     margin-top: 5px;
+
+}
+
+.list-comment-container:hover {
+    color: rgb(153, 153, 153);
 }
 
 .img-holder-right {
@@ -285,6 +299,7 @@
     list-style: none;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .pager-wrapper .prev, .pager-wrapper .next, .pager-wrapper .prev a, .pager-wrapper .next a {
@@ -294,21 +309,21 @@
     line-height: 2.308;
 }
 
-.pager-wrapper .prev{
+.pager-wrapper .prev {
     margin-right: 30px;
 }
-.pager-wrapper .next{
+
+.pager-wrapper .next {
     margin-left: 20px;
 }
 
-.pager-wrapper .disabled  {
+.pager-wrapper .disabled {
     color: rgba(51, 51, 51, 0.502);
     line-height: 2.308;
     font-size: 13px;
 }
 
-
-.pager-wrapper li:not(.next):not(.prev) a{
+.pager-wrapper li:not(.next):not(.prev) a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -325,27 +340,28 @@
     margin-right: 10px;
 }
 
-.pager-wrapper li:not(.next):not(.prev) a:hover{
+.pager-wrapper li:not(.next):not(.prev) a:hover {
     background-color: rgb(159, 213, 51) !important;
     color: rgb(255, 255, 255) !important;
 }
 
-.pager-wrapper .active a{
+.pager-wrapper .active a {
     background-color: rgb(159, 213, 51) !important;
     color: rgb(255, 255, 255) !important;
 }
 
-.wrap{
-   height:100vh;
+.wrap {
+    min-height: 100vh;
 }
 
-.photo-text-container{
+.photo-text-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.side-photo-text{
+.side-photo-text {
     margin-bottom: 25px;
     font-size: 48px;
     font-family: "Roboto";
@@ -353,15 +369,236 @@
     line-height: 1.2;
 }
 
-.side-by-container{
+.side-by-container {
     display: flex;
-    flex-direction: column;
+
 }
 
-.side-by-container span{
+.side-by-container span {
     margin-right: 7px;
     font-size: 20px;
     font-family: "Roboto";
     color: rgb(255, 255, 255);
     line-height: 1.2;
+}
+
+/* comments */
+#comments {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+
+}
+
+.comments-container {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.comments-back-container {
+    display: flex;
+    align-items: center;
+    margin-top: 42px;
+    margin-bottom: 34px;
+}
+
+.comments-back-container:hover {
+    color: rgb(133, 179, 43);
+}
+
+.back-text {
+    margin-left: 8px;
+    font-size: 13px;
+    font-family: "Roboto";
+    color: rgb(133, 179, 43);
+    line-height: 2.308;
+}
+
+.comments-inner-container {
+    display: flex;
+    padding-top: 35px;
+    padding-left: 40px;
+    padding-bottom: 27px;
+    padding-right: 40px;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+.comments-main-header-container {
+    display: flex;
+}
+
+.comments-main-header-container span {
+    font-size: 30px;
+    font-family: "Roboto";
+    color: rgb(153, 153, 153);
+    line-height: 1;
+}
+
+.comments-main-text {
+    font-size: 30px;
+    font-family: "Roboto";
+    color: rgb(51, 51, 51);
+    line-height: 1;
+    margin-right: 15px;
+}
+
+.comments-info-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.comments-status-container {
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+    border-radius: 2px;
+    background-color: rgb(159, 213, 51);
+    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+
+}
+
+.comments-status-container .img-holder {
+    padding-right: 5px;
+
+}
+
+.comments-status-container span {
+    font-size: 14px;
+    font-family: "Roboto";
+    color: rgb(255, 255, 255);
+    line-height: 2.143;
+    text-transform: uppercase;
+}
+
+.comments-user-container, .comment-count-container {
+    font-size: 13px;
+    font-family: "Roboto";
+    color: rgb(191, 191, 191);
+    line-height: 2.308;
+}
+
+.user-name {
+    color: rgb(159, 213, 51)
+}
+
+.user-name:hover {
+    text-decoration: underline;
+}
+
+.comment-main-container {
+    display: flex;
+    margin-bottom: 50px;
+
+}
+
+.avatar-place {
+    display: flex;
+}
+
+.avatar-place .img-background {
+    height: 70px;
+    width: 70px;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    border-radius: 50%;
+}
+
+.comment-main-header {
+    height: 63px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    padding-left: 20px;
+
+}
+
+.comment-main-item-container {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-left: 15px;
+    width: 100%;
+}
+
+.comment-main-item-body {
+    padding-bottom: 37px;
+    padding-right: 60px;
+    padding-left: 30px;
+    padding-top: 29px;
+    font-size: 13px;
+    font-family: "Roboto";
+    color: rgb(102, 102, 102);
+    line-height: 1.538;
+}
+
+@media only screen and (max-width: 1150px) {
+    #issues {
+        flex-direction: column-reverse;
+
+    }
+
+    .issues-list-container {
+        width: 100%;
+    }
+
+    .issues-image-container {
+        width: 100%;
+        height: 20vh;
+        position: relative;
+
+    }
+
+    .side-photo-text {
+        font-size: 30px;
+    }
+
+    .container {
+        padding-right: 0px;
+    }
+
+    .list-inner-container {
+        margin-left: 9px;
+        padding-left: 0px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .comments-container {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .comments-main-header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .comments-info-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .comments-status-container {
+        margin-right: 0px;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .avatar-place {
+        display: none;
+    }
+
+    .comment-main-item-container {
+        margin-left: 0px;
+    }
 }

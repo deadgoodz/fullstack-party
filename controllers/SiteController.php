@@ -71,29 +71,30 @@ class SiteController extends Controller
 
         $counts = Yii::$app->functions->getStateCounts($issues);
 
-        $pagination = new Pagination(['totalCount' => count($issues), 'pageSize' => 1]);
+        $pagination = new Pagination(['totalCount' => count($issues), 'pageSize' => 10]);
 
         if (!empty($issues)) {
-            $issues = array_slice($issues, $pagination->offset, 1);
+            $issues = array_slice($issues, $pagination->offset, 10);
         }
 
 
-        return $this->render('index', compact('issues', 'pagination','counts'));
+        return $this->render('index', compact('issues', 'pagination', 'counts'));
 
     }
 
     public function actionComments()
     {
+        $session = Yii::$app->session;
+
         if (isset($_GET['id'])) {
-
-
             $github = new Github();
 
             $comments = $github->getComments($_GET['id']);
+            $issue = $github->getIssue($_GET['id']);
 
-            return $this->render('comments', compact('comments'));
+            return $this->render('comments', compact('comments', 'issue'));
         } else {
-            return $this->redirect('index');
+            return $this->redirect('site/index');
         }
     }
 

@@ -71,7 +71,8 @@ use yii\widgets\LinkPager;
                                 </div>
                             </div>
                             <div class="list-comments">
-                                <a href="" class="list-comment-container">
+                                <a href="<?= Url::to(['/comments/' . $issue->number]); ?>"
+                                   class="list-comment-container">
                                     <div class="img-holder-right">
                                         <img src="/images/comment-icon.png">
                                     </div>

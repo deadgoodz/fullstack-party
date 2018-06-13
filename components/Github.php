@@ -31,7 +31,7 @@ class Github
 
 
         if ($this->curl->responseCode != 200) {
-            throw new Exception('API call failed at '.$path.' : '. $this->curl->responseCode);
+            throw new Exception('API call failed at ' . $path . ' : ' . $this->curl->responseCode);
         }
 
         return json_decode($response);
@@ -41,15 +41,26 @@ class Github
     public function getIssues()
     {
         if (Yii::$app->user->getIdentity()) {
-            $path = '/repos/' . Yii::$app->user->getIdentity()->username . '/proman/issues?state=all' ;
+            $path = '/repos/' . Yii::$app->user->getIdentity()->username . '/proman/issues?state=all';
             $data = $this->performCurlGet($path);
-            if(!empty($data)){
+            if (!empty($data)) {
                 $data = $this->groupIssues($data);
             }
 
             return $data;
         }
     }
+
+    public function getIssue($id)
+    {
+        if (Yii::$app->user->getIdentity()) {
+            $path = '/repos/' . Yii::$app->user->getIdentity()->username . '/proman/issues/' . $id;
+            $data = $this->performCurlGet($path);
+
+            return $data;
+        }
+    }
+
 
     public function getComments($id)
     {
@@ -61,12 +72,13 @@ class Github
         }
     }
 
-    public function groupIssues($data){
+    public function groupIssues($data)
+    {
         $items = [];
-        foreach ($data as $item){
-            if($item->state == 'open'){
+        foreach ($data as $item) {
+            if ($item->state == 'open') {
                 $items[$item->state][] = $item;
-            }else{
+            } else {
                 $items['closed'][] = $item;
             }
         }
